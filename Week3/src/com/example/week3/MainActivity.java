@@ -1,11 +1,31 @@
 package com.example.week3;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,11 +47,64 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private CustomViewPager pager;
 	private Button tabPage1, tabPage2, tabPage3;
 	
+	// public static ArrayList<HashMap<String, String>> roadMap;
+	public static ArrayList<Station> roadMap;
+	public static ArrayList<Edge> roadEdge;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		try {
+			// ----------------------------- GET EVERY STATION INFOMATION FROM WEB SERVER
+			String mlink = "http://madcamptest.dothome.co.kr/5/select.php";
+			JSONArray data = new JSONArray(new JSONParse().execute(mlink).get());
+
+			roadMap = new ArrayList<Station>();
+			for (int i = 0; i < data.length(); i++) {
+				roadMap.add(new Station(
+						data.getJSONObject(i).getString("LINE"),
+						data.getJSONObject(i).getString("STATION"),
+						data.getJSONObject(i).getInt("TAG"),
+						data.getJSONObject(i).getInt("MAP_X"),
+						data.getJSONObject(i).getInt("MAP_Y"),
+						data.getJSONObject(i).getLong("LAT"),
+						data.getJSONObject(i).getLong("LONG")));
+			}
+				/* HashMap<String, String> temp = new HashMap<String, String>();
+				temp.put("LINE", data.getJSONObject(i).getString("LINE"));
+				temp.put("TAG", data.getJSONObject(i).getString("TAG"));
+				temp.put("STATION", data.getJSONObject(i).getString("STATION"));
+				temp.put("MAP_X", data.getJSONObject(i).getString("MAP_X")); 
+				temp.put("MAP_Y", data.getJSONObject(i).getString("MAP_Y")); 
+				temp.put("LAT", data.getJSONObject(i).getString("LAT")); 
+				temp.put("LONG", data.getJSONObject(i).getString("LONG")); 
+				
+				roadMap.add(temp);
+				*/
+			
+			// ----------------------------- GET EVERY EDGE INFOMATION FROM WEB SERVER
+			mlink = "http://madcamptest.dothome.co.kr/5/select_edge.php";
+			data = new JSONArray(new JSONParse().execute(mlink).get());
+
+			roadEdge = new ArrayList<Edge>();
+			for (int i = 0; i < data.length(); i++) {
+				roadEdge.add(new Edge(
+						data.getJSONObject(i).getString("LINE"),
+						data.getJSONObject(i).getInt("FROM"),
+						data.getJSONObject(i).getInt("TO"),
+						data.getJSONObject(i).getInt("MIN")));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+
+		// VIEW PAGER
 		pager = (CustomViewPager)findViewById(R.id.pager);
 		TabPager = new PagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(TabPager);
@@ -39,8 +112,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage1 = (Button)findViewById(R.id.tabPage1);
 		tabPage2 = (Button)findViewById(R.id.tabPage2);
 		tabPage3=  (Button)findViewById(R.id.tabPage3);
-		
-		tabPage1.setTextColor(Color.parseColor("#eeeeee"));
 		
 		pager.setAdapter(TabPager);
 		pager.setCurrentItem(FRAGMENT1);
@@ -54,14 +125,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
@@ -73,20 +140,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				tabPage1.setTextColor(Color.parseColor("#000000"));
 				tabPage2.setTextColor(Color.parseColor("#000000"));
 				tabPage3.setTextColor(Color.parseColor("#000000"));
+				
 				switch (position) {
 				case FRAGMENT1:
 					tabPage1.setSelected(true);
-					tabPage1.setTextColor(Color.parseColor("#eeeeee"));
+					tabPage1.setTextColor(Color.parseColor("#000000"));
 					TabPager.notifyDataSetChanged();
 					break;
 				case FRAGMENT2:
 					tabPage2.setSelected(true);
-					tabPage2.setTextColor(Color.parseColor("#eeeeee"));
+					tabPage2.setTextColor(Color.parseColor("#000000"));
 					TabPager.notifyDataSetChanged();
 					break;
 				case FRAGMENT3:
 					tabPage3.setSelected(true);
-					tabPage3.setTextColor(Color.parseColor("#eeeeee"));
+					tabPage3.setTextColor(Color.parseColor("#000000"));
 					TabPager.notifyDataSetChanged();
 					break;
 				}
@@ -227,4 +295,36 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 	}
 	
+}
+
+class JSONParse extends AsyncTask<String, String, String> {
+
+	@Override
+	protected String doInBackground(String... params) {
+		StringBuilder strBuilder = new StringBuilder();
+		HttpClient hClient = new DefaultHttpClient();
+		HttpGet hGet = new HttpGet(params[0]);
+
+		try {
+			HttpResponse response = hClient.execute(hGet);
+			StatusLine sLine = response.getStatusLine();
+			int statusCode = sLine.getStatusCode();
+
+			if (statusCode == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream content = entity.getContent();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(content));
+				String line;
+				while ((line = reader.readLine()) != null)
+					strBuilder.append(line);
+			} 
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return strBuilder.toString();
+	}
 }

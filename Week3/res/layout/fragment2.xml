@@ -5,9 +5,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView
-        android:id="@+id/frag1_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fragment 2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="내일로 지도 :)"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+    <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal" >
+                
+           		<com.example.week3.RailView
+                   	android:id="@+id/railView"
+                    android:layout_width="700px"
+                    android:layout_height="980px"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    
 </LinearLayout>

@@ -6,20 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 public class Fragment3 extends Fragment {
-	private View view;
-	
-	
-	
-	
-	public Fragment3() {
-		// TODO Auto-generated constructor stub
-	}
-	
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment3, container, false);
-		
+		View view = inflater.inflate(R.layout.fragment3, null);
 		return view;
 	}
 }
