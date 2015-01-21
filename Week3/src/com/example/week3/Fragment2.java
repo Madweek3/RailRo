@@ -12,7 +12,6 @@ public class Fragment2 extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment2, container, false);
-	
 		return view;
 	}
 	

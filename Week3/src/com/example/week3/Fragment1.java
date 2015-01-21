@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 public class Fragment1 extends Fragment {
 	private View view;
+	
 	public static ArrayList<String> trans;
 	public static String start;
 	public static String end;
@@ -62,7 +63,7 @@ public class Fragment1 extends Fragment {
         stationView.setItemsCanFocus(false);
         stationView.setTextFilterEnabled(true);
         
-        stationView.setOnItemClickListener(new OnItemClickListener() {
+        stationView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 	        	((ImageView)v.findViewById(R.id.imageView1)).setImageResource(R.drawable.empty);
@@ -71,36 +72,39 @@ public class Fragment1 extends Fragment {
 	        	TextView tempText = (TextView) v.findViewById(R.id.label);
 	        	ImageView tempImg3 = (ImageView)v.findViewById(R.id.imageView3);
 	    
-	        	if(Fragment1.trans.contains(tempText.toString())){
+	        	if(trans.contains(tempText.getText().toString())){
 	        		tempImg3.setImageResource(R.drawable.empty);
-	        		toggleTo(tempText.toString(), 0);
-	        		Fragment1.trans.remove(tempText.toString());
+	        		toggleTo(tempText.getText().toString(), 0);
+	        		trans.remove(tempText.getText().toString());
 	        	}
 	        	else{
 	        		tempImg3.setImageResource(R.drawable.trans);
-	        		toggleTo(tempText.toString(), 1);
-	        		Fragment1.trans.add(tempText.toString());
+	        		toggleTo(tempText.getText().toString(), 1);
+	        		trans.add(tempText.getText().toString());
 	        	}
 	        }
 	    });
 	     
-        stationView.setOnItemLongClickListener(new OnItemLongClickListener() {
+        stationView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        	@Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int pos, long id) {
+        		
 	        	TextView tempText = (TextView) v.findViewById(R.id.label);
         		((ImageView)v.findViewById(R.id.imageView3)).setImageResource(R.drawable.empty);
         		
-	        	if(Fragment1.start.equals("")){
+	        	if(start.equals("")){
 	        		ImageView tempImg1 = (ImageView) v.findViewById(R.id.imageView1);
 	        		tempImg1.setImageResource(R.drawable.start);
-	        		toggleTo(tempText.toString(), 1);
-	        		Fragment1.start = tempText.toString();
+	        		toggleTo(tempText.getText().toString(), 1);
+	        		start = tempText.getText().toString();
 	        	}
-	        	else if(Fragment1.end.equals("")){
+	        	else if(end.equals("")){
 	        		ImageView tempImg2 = (ImageView) v.findViewById(R.id.imageView2);
 	        		tempImg2.setImageResource(R.drawable.end);
-	        		toggleTo(tempText.toString(), 2);
-	        		Fragment1.end = tempText.toString();
+	        		toggleTo(tempText.getText().toString(), 2);
+	        		end = tempText.getText().toString();
 	        	}
+	        	
 	            return true;
 	        }
 	    });
@@ -161,13 +165,16 @@ public class Fragment1 extends Fragment {
      * 2 : END
      * 3 : TRANSFER */
 	
-	void toggleTo(String lb, int to){
-		if(lb.equals(Fragment1.start) && to != 1 && to != 2)
-			Fragment1.start = "";
-		else if(lb.equals(Fragment1.end) && to != 2)
-			Fragment1.end = "";
-		else if(Fragment1.trans.contains(lb) && to != 3)
-			Fragment1.trans.remove(lb);
+	static void toggleTo(String lb, int to){
+		// Log.v("Hello", start + "/" + end );
+		if(lb.equals(start) && to != 1 && to != 2)
+			start = "";
+		
+		if(lb.equals(end) && to != 1 && to != 2)
+			end = "";
+		
+		if(trans.contains(lb) && to != 3)
+			trans.remove(lb);
 	}
 }
 
