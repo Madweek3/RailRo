@@ -18,14 +18,15 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private final long	FINSH_INTERVAL_TIME    = 2000;
 	private long		backPressedTime        = 0;
 	
-	private int NUM_PAGES = 3;
+	private int NUM_PAGES = 4;
 	
 	private final static int FRAGMENT1 = 0;
 	private final static int FRAGMENT2 = 1;
 	private final static int FRAGMENT3 = 2;
+	private final static int FRAGMENT4 = 3;
 	private PagerAdapter TabPager;
 	private CustomViewPager pager;
-	private Button tabPage1, tabPage2, tabPage3;
+	private Button tabPage1, tabPage2, tabPage3, tabPage4;
 	
 	
 	@Override
@@ -39,6 +40,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage1 = (Button)findViewById(R.id.tabPage1);
 		tabPage2 = (Button)findViewById(R.id.tabPage2);
 		tabPage3=  (Button)findViewById(R.id.tabPage3);
+		tabPage4=  (Button)findViewById(R.id.tabPage4);
 		
 		tabPage1.setTextColor(Color.parseColor("#eeeeee"));
 		
@@ -49,6 +51,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage1.setSelected(true);
 		tabPage2.setOnClickListener(this);
 		tabPage3.setOnClickListener(this);
+		tabPage4.setOnClickListener(this);
 		
 		pager.setOnPageChangeListener(new OnPageChangeListener(){
 
@@ -70,9 +73,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				tabPage1.setSelected(false);
 				tabPage2.setSelected(false);
 				tabPage3.setSelected(false);
+				tabPage4.setSelected(false);
 				tabPage1.setTextColor(Color.parseColor("#000000"));
 				tabPage2.setTextColor(Color.parseColor("#000000"));
 				tabPage3.setTextColor(Color.parseColor("#000000"));
+				tabPage4.setTextColor(Color.parseColor("#000000"));
 				switch (position) {
 				case FRAGMENT1:
 					tabPage1.setSelected(true);
@@ -87,6 +92,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				case FRAGMENT3:
 					tabPage3.setSelected(true);
 					tabPage3.setTextColor(Color.parseColor("#eeeeee"));
+					TabPager.notifyDataSetChanged();
+					break;
+				case FRAGMENT4:
+					tabPage4.setSelected(true);
+					tabPage4.setTextColor(Color.parseColor("#eeeeee"));
 					TabPager.notifyDataSetChanged();
 					break;
 				}
@@ -114,6 +124,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					return new Fragment2();
 				case FRAGMENT3:
 					return new Fragment3();
+				case FRAGMENT4:
+					return new Fragment4();
 				}
 			
 			return null;
@@ -151,6 +163,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				setSelected(tabPage3);
 				pager.setCurrentItem(FRAGMENT3);
 				break;
+			case R.id.tabPage4:
+				setSelected(tabPage4);
+				pager.setCurrentItem(FRAGMENT4);
+				break;
 			}
 		
 	}
@@ -159,10 +175,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage1.setSelected(false);
 		tabPage2.setSelected(false);
 		tabPage3.setSelected(false);
+		tabPage4.setSelected(false);
 		
 		tabPage1.setTextColor(Color.parseColor("#000000"));
 		tabPage2.setTextColor(Color.parseColor("#000000"));
 		tabPage3.setTextColor(Color.parseColor("#000000"));
+		tabPage4.setTextColor(Color.parseColor("#000000"));
 
 		
 		btn.setSelected(true);
@@ -185,6 +203,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		case 2:
 			setSelected(tabPage1);
 			pager.setCurrentItem(FRAGMENT3);
+			break;
+		case 3:
+			setSelected(tabPage1);
+			pager.setCurrentItem(FRAGMENT4);
 			break;
 		}
 	}

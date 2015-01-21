@@ -43,6 +43,16 @@
                 android:background="@drawable/btn_selector3"
                 android:text="EAT"
                 android:textSize="12sp" />
+
+            
+            <Button
+                android:id="@+id/tabPage4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/btn_selector4"
+                android:text="EAT"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <com.example.week3.CustomViewPager
