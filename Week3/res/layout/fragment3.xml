@@ -15,15 +15,33 @@
         android:textColor="#FFF"
         android:textSize="18dp" />
 
-    <EditText
-        android:id="@+id/etResponse"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="10dp"
-        android:ems="10" 
-        android:inputType="textMultiLine" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/f3_button_before"
+            android:layout_width = "wrap_content"
+            android:layout_height= "wrap_content"
+            android:text="@string/button_before"
+            android:enabled="false"/>
+        
+        <Button
+            android:id="@+id/f3_button_next"
+            android:layout_width = "wrap_content"
+            android:layout_height= "wrap_content"
+            android:text="@string/button_next"
+            android:enabled="true"/>
+        
+        
+        
+    </LinearLayout>
 
-        <requestFocus />
-    </EditText>
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF" >
+    </ListView>
 
 </LinearLayout>
