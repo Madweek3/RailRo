@@ -6,7 +6,7 @@ public class Edge {
 	Station to;
 	int min;
 	
-	public Edge(String _line, int _from, int _to, int _min) {
+	public Edge(String _line, String _from, String _to, int _min) {
 		line = _line;
 		from = MainActivity.roadMap.get(_from);
 		to = MainActivity.roadMap.get(_to);

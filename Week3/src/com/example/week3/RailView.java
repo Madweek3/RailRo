@@ -16,8 +16,7 @@ public class RailView extends View {
 	Drawable mapImage;
 	Path mPath;
 	Paint Pnt;
-	ArrayList<Station> visit_station;
-
+	
 	public RailView (Context context, AttributeSet attrs){
 		// INITIALIZE
 		super(context, attrs);
@@ -26,14 +25,47 @@ public class RailView extends View {
 		Pnt = new Paint();
 		mPath = new Path();
 
-		// CALCULATE THE PATH
-		visit_station = new ArrayList<Station>();
-		findpath(MainActivity.roadMap.get(0), MainActivity.roadMap.get(10), visit_station);
+		Fragment2.visit_station = new ArrayList<Station>();
+		ArrayList<String> copyTrans = (ArrayList<String>) MainActivity.trans.clone();
 		
-		mPath.moveTo(visit_station.get(0).map_x, visit_station.get(0).map_y);
-		for(int i = 1; i < visit_station.size(); i++)
-		  mPath.lineTo(visit_station.get(i).map_x, visit_station.get(i).map_y);
+		// CALCULATE THE PATH <TODO>
+		if (!MainActivity.start.equals("") && !MainActivity.end.equals("")) {
+			add_using_station(MainActivity.roadMap.get(MainActivity.start), null, 0);
+
+			while (copyTrans.size() != 0) {
+				Station last = Fragment2.visit_station.get(Fragment2.visit_station.size() - 1);
+				Station temp = MainActivity.roadMap.get(copyTrans.get(0));
+				
+				double min = distance(temp.map_x, temp.map_y, last.map_x, last.map_y);
+				int min_i = 0;
+				
+				for (int i = 1; i < copyTrans.size(); i++) {
+					Station check = MainActivity.roadMap.get(copyTrans.get(0));
+					double newdist = distance(check.map_x, check.map_y,
+							last.map_x, last.map_y);
+					if (min > newdist) {
+						min = newdist;
+						min_i = i;
+					}
+				}
+				findpath(last, MainActivity.roadMap.get(copyTrans.get(min_i)));
+				copyTrans.remove(min_i);
+			}
+
+			Station last = Fragment2.visit_station.get(Fragment2.visit_station.size() - 1);
+			findpath(last, MainActivity.roadMap.get(MainActivity.end));
+
+			mPath.moveTo(Fragment2.visit_station.get(0).map_x, Fragment2.visit_station.get(0).map_y);
+			for (int i = 1; i < Fragment2.visit_station.size(); i++)
+				mPath.lineTo(Fragment2.visit_station.get(i).map_x, Fragment2.visit_station.get(i).map_y);
+
+		}
 	}
+	
+	public double distance(int x1, int y1, int x2, int y2){
+		return Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+	}
+
 	
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh){
@@ -52,13 +84,11 @@ public class RailView extends View {
 		canvas.drawPath(mPath, Pnt);
 	}
 	
-	public static void findpath(Station from_station, Station to_station, ArrayList<Station> visit_station){
-		add_using_station(visit_station, from_station, null, 0);
-		
+	public static void findpath(Station from_station, Station to_station){
 		for (;;) {
 			ArrayList<Edge> adjacent_edges = new ArrayList<Edge>();
-			for (int i = 0; i < visit_station.size(); i++)
-				find_adjacent_edges(visit_station.get(i), adjacent_edges, visit_station);
+			for (int i = 0; i < Fragment2.visit_station.size(); i++)
+				find_adjacent_edges(Fragment2.visit_station.get(i), adjacent_edges);
 			
 			int smallest_edge = adjacent_edges.get(0).min;
 			for (int i = 0; i < adjacent_edges.size(); i++) {
@@ -73,20 +103,20 @@ public class RailView extends View {
 					break;
 				}
 			}
-			for (int i = 0; i < visit_station.size(); i++) {
-				if (adjacent_edges.get(j).from.equals(visit_station.get(i))) {
-					add_using_station(visit_station, adjacent_edges.get(j).to,adjacent_edges.get(j).from, smallest_edge);
+			for (int i = 0; i < Fragment2.visit_station.size(); i++) {
+				if (adjacent_edges.get(j).from.equals(Fragment2.visit_station.get(i))) {
+					add_using_station(adjacent_edges.get(j).to,adjacent_edges.get(j).from, smallest_edge);
 					break;
 				} 
-				if (adjacent_edges.get(j).to.equals(visit_station.get(i))) {
-					add_using_station(visit_station, adjacent_edges.get(j).from,adjacent_edges.get(j).to, smallest_edge);
+				if (adjacent_edges.get(j).to.equals(Fragment2.visit_station.get(i))) {
+					add_using_station(adjacent_edges.get(j).from,adjacent_edges.get(j).to, smallest_edge);
 					break;
 				}
 			}//add the vertex in the using_vertex
 			
 			int count_ = 0;
-			for (int i = 0; i < visit_station.size(); i++) {
-				if (visit_station.get(i).name.equals(to_station.name)) {
+			for (int i = 0; i < Fragment2.visit_station.size(); i++) {
+				if (Fragment2.visit_station.get(i).name.equals(to_station.name)) {
 					count_ = 1;
 					break;
 				}
@@ -98,8 +128,8 @@ public class RailView extends View {
 		}
 	}
 	
-	public static void add_using_station(ArrayList<Station> visit_station, Station new_station, Station prev_station, int min_from_prev) {
-		visit_station.add(new_station);
+	public static void add_using_station(Station new_station, Station prev_station, int min_from_prev) {
+		Fragment2.visit_station.add(new_station);
 		new_station.prev = prev_station;
 		
 		if (prev_station != null) {
@@ -110,9 +140,9 @@ public class RailView extends View {
 		}
 	}
 
-	public static void find_adjacent_edges(Station st, ArrayList<Edge> ed, ArrayList<Station> visit_station) {
+	public static void find_adjacent_edges(Station st, ArrayList<Edge> ed) {
 		for (int i = 0; i < st.numEdge; i++) {
-			if(visit_station.contains(st.edge[i].from) && visit_station.contains(st.edge[i].to)){}
+			if(Fragment2.visit_station.contains(st.edge[i].from) && Fragment2.visit_station.contains(st.edge[i].to)){}
 			else{
 				st.edge[i].min = st.prev_min + st.edge[i].min;
 				ed.add(st.edge[i]);

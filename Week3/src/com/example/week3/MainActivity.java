@@ -25,7 +25,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,29 +47,39 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private Button tabPage1, tabPage2, tabPage3;
 	
 	// public static ArrayList<HashMap<String, String>> roadMap;
-	public static ArrayList<Station> roadMap;
+	public static HashMap<String, Station> roadMap;
 	public static ArrayList<Edge> roadEdge;
+	
+	public static String start;
+	public static String end;
+	public static ArrayList<String> trans;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		MainActivity.start = "";
+		MainActivity.end = "";
+		MainActivity.trans = new ArrayList<String>();
+		
 		try {
 			// ----------------------------- GET EVERY STATION INFOMATION FROM WEB SERVER
 			String mlink = "http://madcamptest.dothome.co.kr/5/select.php";
 			JSONArray data = new JSONArray(new JSONParse().execute(mlink).get());
 
-			roadMap = new ArrayList<Station>();
+			roadMap = new HashMap<String, Station>();
+			
 			for (int i = 0; i < data.length(); i++) {
-				roadMap.add(new Station(
+				roadMap.put(data.getJSONObject(i).getString("STATION"), new Station(
 						data.getJSONObject(i).getString("LINE"),
 						data.getJSONObject(i).getString("STATION"),
 						data.getJSONObject(i).getInt("TAG"),
 						data.getJSONObject(i).getInt("MAP_X"),
 						data.getJSONObject(i).getInt("MAP_Y"),
 						data.getJSONObject(i).getLong("LAT"),
-						data.getJSONObject(i).getLong("LONG")));
+						data.getJSONObject(i).getLong("LONG"), 
+						data.getJSONObject(i).getLong("RATING")));
 			}
 				/* HashMap<String, String> temp = new HashMap<String, String>();
 				temp.put("LINE", data.getJSONObject(i).getString("LINE"));
@@ -92,8 +101,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			for (int i = 0; i < data.length(); i++) {
 				roadEdge.add(new Edge(
 						data.getJSONObject(i).getString("LINE"),
-						data.getJSONObject(i).getInt("FROM"),
-						data.getJSONObject(i).getInt("TO"),
+						data.getJSONObject(i).getString("FROM"),
+						data.getJSONObject(i).getString("TO"),
 						data.getJSONObject(i).getInt("MIN")));
 			}
 		} catch (JSONException e) {

@@ -17,7 +17,9 @@ public class Station {
 	int prev_min;
 	Station prev;
 	
-	public Station(String _line, String _name, int _tag, int _x, int _y, float _lat, float _long) {
+	float rating;
+	
+	public Station(String _line, String _name, int _tag, int _x, int _y, float _lat, float _long, float _rating) {
 		line = _line;
 		name = _name;
 		tag = _tag;
@@ -33,6 +35,8 @@ public class Station {
 		
 		prev_min = 0;
 		prev = null;
+		
+		rating = _rating;
 	}
 	
 	public void addEdge(Edge _edge){
