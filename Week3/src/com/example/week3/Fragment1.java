@@ -79,7 +79,7 @@ public class Fragment1 extends Fragment {
 	        	}
 	        	else{
 	        		tempImg3.setImageResource(R.drawable.trans);
-	        		toggleTo(tempText.getText().toString(), 1);
+	        		toggleTo(tempText.getText().toString(), 3);
 	        		trans.add(tempText.getText().toString());
 	        	}
 	        }
@@ -88,7 +88,6 @@ public class Fragment1 extends Fragment {
         stationView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
         	@Override
             public boolean onItemLongClick(AdapterView<?> parent, View v, int pos, long id) {
-        		
 	        	TextView tempText = (TextView) v.findViewById(R.id.label);
         		((ImageView)v.findViewById(R.id.imageView3)).setImageResource(R.drawable.empty);
         		
@@ -160,10 +159,8 @@ public class Fragment1 extends Fragment {
 		return view;
 	}
 	
-	/* --------------- STATUS INDEX
-     * 1 : START
-     * 2 : END
-     * 3 : TRANSFER */
+	/* --------------- STATUS INDEX --------------- */
+    // 1 : START    2 : END    3 : TRANSFER 
 	
 	static void toggleTo(String lb, int to){
 		// Log.v("Hello", start + "/" + end );
@@ -181,61 +178,64 @@ public class Fragment1 extends Fragment {
 class CustomAdapter extends ArrayAdapter<String> {
 	ArrayList<String> mList;
 	ArrayList<String> fList;
+	
+	private LayoutInflater mInflater;
 	private StationFilter filter;
 	
 	public CustomAdapter (Context context, int textViewResourceId, ArrayList<String> _mList) {
 		super(context, textViewResourceId, _mList);
 		mList = _mList;
 		fList = _mList;
+		
+		mInflater = LayoutInflater.from(context);
 	}
-	
+	@Override
+	public int getCount() {
+        return fList.size();
+    }
+
+	@Override
+    public String getItem(int position) {
+        return fList.get(position);
+    }
+    
 	@Override
 	  public Filter getFilter() {
 	   if (filter == null)
 	    filter = new StationFilter();
 	   
 	   return filter;
-	  }
+	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final Context context = parent.getContext();
-		
-		TextView text = null;
-	    ImageView img1 = null;
-	    ImageView img2 = null;
-	    ImageView img3 = null;
-	    CustomHolder holder = null;
+	    CustomHolder holder;
 	     
 	    if (convertView == null) {
-	        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	        convertView = inflater.inflate(R.layout.station_list, parent, false);
-	         
-	        text = (TextView) convertView.findViewById(R.id.label);
-	        img1 = (ImageView) convertView.findViewById(R.id.imageView1);
-	        img2 = (ImageView) convertView.findViewById(R.id.imageView2);
-	        img3 = (ImageView) convertView.findViewById(R.id.imageView3);
+	        convertView = mInflater.inflate(R.layout.station_list, parent, false);
 	        
 	        // 홀더 생성 및 Tag로 등록
 	        holder = new CustomHolder();
-	        holder.mTextView = text;
-	        holder.mImage1 = img1;
-	        holder.mImage2 = img2;
-	        holder.mImage3 = img3;
+	        holder.mTextView = (TextView) convertView.findViewById(R.id.label);
+	        holder.mImage1 = (ImageView) convertView.findViewById(R.id.imageView1);
+	        holder.mImage2 = (ImageView) convertView.findViewById(R.id.imageView2);
+	        holder.mImage3 = (ImageView) convertView.findViewById(R.id.imageView3);
 	        
+	        if(Fragment1.trans.contains(fList.get(position)))
+	        	holder.mImage3.setImageResource(R.drawable.trans);
+	        else{
+	        	if(Fragment1.start.equals(fList.get(position)))
+	        		holder.mImage1.setImageResource(R.drawable.start);
+		        if(Fragment1.end.equals(fList.get(position)))
+		        	holder.mImage2.setImageResource(R.drawable.end);
+	        }
+	        	
 	        convertView.setTag(holder);
 	    }
-	    else {
+	    else 
 	        holder = (CustomHolder) convertView.getTag();
-	        text = holder.mTextView;
-	        img1 = holder.mImage1;
-	        img2 = holder.mImage2;
-	        img3 = holder.mImage3;
-	    }
-	    
-	    Log.v("POSITION", Integer.toString(position));
-	    
-	    text.setText(mList.get(position));
+	   
+	    holder.mTextView.setText(fList.get(position));
 	    
 		return convertView;
 	}
@@ -251,38 +251,35 @@ class CustomAdapter extends ArrayAdapter<String> {
 
 		@Override
 		protected FilterResults performFiltering(CharSequence constraint) {
+			String filterString = constraint.toString().toLowerCase();
+
 			FilterResults results = new FilterResults();
-		    
-		    if (constraint == null || constraint.length() == 0) {
-		        results.values = mList;
-		        results.count = mList.size();
-		    }
-		    else {
-		        ArrayList<String> tempList = new ArrayList<String>();
-		         
-		        for (String p : mList) {
-		            if (p.toUpperCase().startsWith(constraint.toString().toUpperCase()))
-		                tempList.add(p);
-		        }
-		         
-		        results.values = tempList;
-		        results.count = tempList.size();
-		 
-		    }
-		    return results;
+
+			final ArrayList<String> list = mList;
+
+			int count = list.size();
+			final ArrayList<String> nlist = new ArrayList<String>(count);
+
+			String filterableString;
+
+			for (int i = 0; i < count; i++) {
+				filterableString = list.get(i);
+				if (filterableString.toLowerCase().contains(filterString)) {
+					nlist.add(filterableString);
+				}
+			}
+
+			results.values = nlist;
+			results.count = nlist.size();
+
+			return results;
 		}
 
 		@Override
 		protected void publishResults(CharSequence constraint,
 				FilterResults results) {
-			
-			if (results.count == 0)
-		        notifyDataSetInvalidated();
-		    else {
-		        mList = (ArrayList<String>) results.values;
-		        notifyDataSetChanged();
-		    }
+			fList = (ArrayList<String>) results.values;
+            notifyDataSetChanged();
 		}
-		
 	}
 }
