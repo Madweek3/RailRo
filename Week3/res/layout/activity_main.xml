@@ -21,7 +21,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector1"
-                android:text="1"
+                android:text="SELECT"
                 android:textSize="12sp" />
 
             <Button
@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector2"
-                android:text="2"
+                android:text="ROUTE"
                 android:textSize="12sp" />
 
             <Button
@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector3"
-                android:text="3"
+                android:text="INFO"
                 android:textSize="12sp" />
         </LinearLayout>
 

@@ -49,7 +49,6 @@ public final class R {
     public static final class id {
         public static final int FrameLayout1=0x7f080000;
         public static final int action_settings=0x7f08001d;
-        public static final int button=0x7f08000a;
         public static final int editText=0x7f080008;
         public static final int frag1_textView=0x7f080012;
         public static final int fragment1=0x7f080005;
@@ -67,6 +66,7 @@ public final class R {
         public static final int scrollView=0x7f08000e;
         public static final int stationView=0x7f080009;
         public static final int station_elem_layout=0x7f080013;
+        public static final int submitButton=0x7f08000a;
         public static final int tabPage1=0x7f080001;
         public static final int tabPage2=0x7f080002;
         public static final int tabPage3=0x7f080003;

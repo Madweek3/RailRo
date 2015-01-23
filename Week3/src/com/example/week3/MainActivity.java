@@ -54,6 +54,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	public static String end;
 	public static ArrayList<String> trans;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,19 +82,21 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 						data.getJSONObject(i).getLong("LONG"), 
 						data.getJSONObject(i).getLong("RATING")));
 			}
-				/* HashMap<String, String> temp = new HashMap<String, String>();
-				temp.put("LINE", data.getJSONObject(i).getString("LINE"));
-				temp.put("TAG", data.getJSONObject(i).getString("TAG"));
-				temp.put("STATION", data.getJSONObject(i).getString("STATION"));
-				temp.put("MAP_X", data.getJSONObject(i).getString("MAP_X")); 
-				temp.put("MAP_Y", data.getJSONObject(i).getString("MAP_Y")); 
-				temp.put("LAT", data.getJSONObject(i).getString("LAT")); 
-				temp.put("LONG", data.getJSONObject(i).getString("LONG")); 
-				
-				roadMap.add(temp);
-				*/
 			
-			// ----------------------------- GET EVERY EDGE INFOMATION FROM WEB SERVER
+			/*
+			 * HashMap<String, String> temp = new HashMap<String, String>();
+			 * temp.put("LINE", data.getJSONObject(i).getString("LINE"));
+			 * temp.put("TAG", data.getJSONObject(i).getString("TAG"));
+			 * temp.put("STATION", data.getJSONObject(i).getString("STATION"));
+			 * temp.put("MAP_X", data.getJSONObject(i).getString("MAP_X"));
+			 * temp.put("MAP_Y", data.getJSONObject(i).getString("MAP_Y"));
+			 * temp.put("LAT", data.getJSONObject(i).getString("LAT"));
+			 * temp.put("LONG", data.getJSONObject(i).getString("LONG"));
+			 * 
+			 * roadMap.add(temp);
+			 */
+
+			// ----------------------------- GET EVERY EDGE INFOMATION FROM WEB
 			mlink = "http://madcamptest.dothome.co.kr/5/select_edge.php";
 			data = new JSONArray(new JSONParse().execute(mlink).get());
 
@@ -127,6 +130,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		
 		tabPage1.setOnClickListener(this);
 		tabPage1.setSelected(true);
+		tabPage1.setTextColor(Color.parseColor("#eeeeee"));
+		
 		tabPage2.setOnClickListener(this);
 		tabPage3.setOnClickListener(this);
 		
@@ -153,17 +158,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				switch (position) {
 				case FRAGMENT1:
 					tabPage1.setSelected(true);
-					tabPage1.setTextColor(Color.parseColor("#000000"));
+					tabPage1.setTextColor(Color.parseColor("#eeeeee"));
 					TabPager.notifyDataSetChanged();
 					break;
 				case FRAGMENT2:
 					tabPage2.setSelected(true);
-					tabPage2.setTextColor(Color.parseColor("#000000"));
+					tabPage2.setTextColor(Color.parseColor("#eeeeee"));
 					TabPager.notifyDataSetChanged();
 					break;
 				case FRAGMENT3:
 					tabPage3.setSelected(true);
-					tabPage3.setTextColor(Color.parseColor("#000000"));
+					tabPage3.setTextColor(Color.parseColor("#eeeeee"));
 					TabPager.notifyDataSetChanged();
 					break;
 				}
@@ -241,7 +246,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage2.setTextColor(Color.parseColor("#000000"));
 		tabPage3.setTextColor(Color.parseColor("#000000"));
 
-		
 		btn.setSelected(true);
 		btn.setTextColor(Color.parseColor("#eeeeee"));
 	}

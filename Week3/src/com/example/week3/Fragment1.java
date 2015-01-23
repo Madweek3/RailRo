@@ -13,14 +13,17 @@ import android.text.TextWatcher;
 // import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Fragment1 extends Fragment {
 	private View view;
@@ -100,7 +103,7 @@ public class Fragment1 extends Fragment {
         
         // SET EDITBOX
         EditText edit = (EditText) view.findViewById(R.id.editText);
-
+        edit.setFocusable(false);
 		edit.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -116,7 +119,19 @@ public class Fragment1 extends Fragment {
 			}
 		});
 		
+		Button submitButton = (Button) view.findViewById(R.id.submitButton);
 		
+		submitButton.setOnClickListener(new View.OnClickListener() {
+		    @Override
+		    public void onClick(View v) {
+		    	if(MainActivity.start.equals(""))
+		    		Toast.makeText(getActivity(), "출발지를 설정해주세요", 100).show();
+		    	else if(MainActivity.end.equals(""))
+		    		Toast.makeText(getActivity(), "도착지를 설정해주세요", 100).show();
+		    	else
+		    		((MainActivity)getActivity()).setCurrentPage(1);
+			}
+		});
 		return view;
 	}
 	
