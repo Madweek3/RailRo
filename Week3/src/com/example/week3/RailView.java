@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,18 +19,35 @@ import android.view.View;
 
 public class RailView extends View {
 	Drawable mapImage;
+	Bitmap trainImage;
 	Path mPath;
 	Paint Pnt;
+
+	PathMeasure pathMeasure;
+	float pathLength;
+
+	float step; // distance each step
+	float distance; // distance moved
+
+	float[] pos;
+	float[] tan;
+
+	Matrix matrix;
 	
+	float bm_offsetX, bm_offsetY;
+
 	public RailView (Context context, AttributeSet attrs){
 		// INITIALIZE
 		super(context, attrs);
 		
 		mapImage = this.getResources().getDrawable(R.drawable.railmap_bw);
+		
 		Pnt = new Paint();
 		mPath = new Path();
 		
 		Fragment2.visit_station = new ArrayList<Station>();
+		Fragment2.real_visit_station = new ArrayList<Station>();
+		
 		ArrayList<String> copyTrans = (ArrayList<String>) MainActivity.trans.clone();
 		
 		// CALCULATE THE PATH <TODO>
@@ -48,6 +69,7 @@ public class RailView extends View {
 						min_i = i;
 					}
 				}
+				
 				findpath(last, MainActivity.roadMap.get(copyTrans.get(min_i)));
 				copyTrans.remove(min_i);
 			}
@@ -56,11 +78,28 @@ public class RailView extends View {
 			temp = MainActivity.roadMap.get(MainActivity.end);
 			findpath(last, temp);
 			Fragment2.visit_station.add(temp);
+			Fragment2.real_visit_station.add(temp);
+			
+			trainImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.train);
+			
+			bm_offsetX = 0;
+			bm_offsetY = 0;
 			
 			mPath.moveTo(Fragment2.visit_station.get(0).map_x, Fragment2.visit_station.get(0).map_y);
 			for (int i = 1; i < Fragment2.visit_station.size(); i++)
 				mPath.lineTo(Fragment2.visit_station.get(i).map_x, Fragment2.visit_station.get(i).map_y);
 		}
+		
+		pathMeasure = new PathMeasure(mPath, false);
+		pathLength = pathMeasure.getLength();
+		
+		step = 1;
+		distance = 0;
+		pos = new float[2];
+		tan = new float[2];
+
+		matrix = new Matrix();
+
 	}
 	
 	public double distance(int x1, int y1, int x2, int y2){
@@ -83,6 +122,21 @@ public class RailView extends View {
 		Pnt.setStyle(Paint.Style.STROKE);
 		
 		canvas.drawPath(mPath, Pnt);
+
+		if (distance < pathLength) {
+			pathMeasure.getPosTan(distance, pos, tan);
+
+			matrix.reset();
+			float degrees = (float) (Math.atan2(tan[1], tan[0]) * 180.0 / Math.PI);
+			matrix.postTranslate(pos[0]-bm_offsetX, pos[1]-bm_offsetY);
+			   
+			canvas.drawBitmap(trainImage, matrix, null);
+
+			distance += step;
+		} else
+			distance = 0;
+
+		invalidate();
 	}
 	
 	public static void findpath(Station from_station, Station to_station){
@@ -141,6 +195,8 @@ public class RailView extends View {
 		Collections.reverse(tempArr);
 		for (int i = 0; i < tempArr.size(); i++)
 			Fragment2.visit_station.add(tempArr.get(i));
+		
+		Fragment2.real_visit_station.add(from_station);
 	}
 	
 	public static void add_using_station(Station new_station, Station prev_station, int min_from_prev, ArrayList<Station> check_station) {

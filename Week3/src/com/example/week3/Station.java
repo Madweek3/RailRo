@@ -3,7 +3,6 @@ package com.example.week3;
 public class Station {
 	String line;
 	String name;
-	int tag;
 	
 	Edge[] edge;
 	int numEdge;
@@ -19,10 +18,9 @@ public class Station {
 	
 	float rating;
 	
-	public Station(String _line, String _name, int _tag, int _x, int _y, float _lat, float _long, float _rating) {
+	public Station(String _line, String _name, int _x, int _y, float _lat, float _long, float _rating) {
 		line = _line;
 		name = _name;
-		tag = _tag;
 
 		edge = new Edge[4];
 		numEdge = 0;

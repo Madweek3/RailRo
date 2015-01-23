@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
         android:orientation="vertical" >
         
  	<ImageView
@@ -24,7 +23,29 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="나의 경로는 어떻게 될까? 그림으로 알아보세요"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내가 방문/환승할 역만 보기" />
+
+            <ImageButton
+                android:id="@+id/kakaoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/kakaolink_btn_small" />
+
+        </RelativeLayout>
         
     <ScrollView
             android:id="@+id/scrollView"

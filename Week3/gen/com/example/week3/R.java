@@ -18,8 +18,8 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int btn1=0x7f020000;
@@ -36,36 +36,46 @@ public final class R {
         public static final int gb_end=0x7f02000b;
         public static final int gb_start=0x7f02000c;
         public static final int gb_trans=0x7f02000d;
-        public static final int ic_launcher=0x7f02000e;
-        public static final int mark=0x7f02000f;
-        public static final int railmap=0x7f020010;
-        public static final int railmap_bw=0x7f020011;
-        public static final int start=0x7f020012;
-        public static final int tab_selected=0x7f020013;
-        public static final int title1=0x7f020014;
-        public static final int title2=0x7f020015;
-        public static final int trans=0x7f020016;
+        public static final int gbk_end=0x7f02000e;
+        public static final int gbk_start=0x7f02000f;
+        public static final int gbk_trans=0x7f020010;
+        public static final int ic_launcher=0x7f020011;
+        public static final int ja_end=0x7f020012;
+        public static final int ja_start=0x7f020013;
+        public static final int ja_trans=0x7f020014;
+        public static final int kakaolink_btn_small=0x7f020015;
+        public static final int mark=0x7f020016;
+        public static final int railmap=0x7f020017;
+        public static final int railmap_bw=0x7f020018;
+        public static final int start=0x7f020019;
+        public static final int tab_selected=0x7f02001a;
+        public static final int title1=0x7f02001b;
+        public static final int title2=0x7f02001c;
+        public static final int train=0x7f02001d;
+        public static final int trans=0x7f02001e;
     }
     public static final class id {
         public static final int FrameLayout1=0x7f080000;
-        public static final int action_settings=0x7f08001d;
+        public static final int action_settings=0x7f08001f;
+        public static final int checkBox1=0x7f08000e;
         public static final int editText=0x7f080008;
-        public static final int frag1_textView=0x7f080012;
+        public static final int frag1_textView=0x7f080014;
         public static final int fragment1=0x7f080005;
         public static final int fragment2=0x7f08000b;
-        public static final int fragment3=0x7f080011;
-        public static final int imageView1=0x7f080018;
-        public static final int imageView2=0x7f080017;
-        public static final int imageView3=0x7f080016;
-        public static final int label=0x7f080014;
-        public static final int lineImage=0x7f08001a;
-        public static final int mapButton=0x7f08001c;
+        public static final int fragment3=0x7f080013;
+        public static final int imageView1=0x7f08001a;
+        public static final int imageView2=0x7f080019;
+        public static final int imageView3=0x7f080018;
+        public static final int kakaoButton=0x7f08000f;
+        public static final int label=0x7f080016;
+        public static final int lineImage=0x7f08001c;
+        public static final int mapButton=0x7f08001e;
         public static final int pager=0x7f080004;
-        public static final int railView=0x7f08000f;
-        public static final int rating=0x7f080015;
-        public static final int scrollView=0x7f08000e;
+        public static final int railView=0x7f080011;
+        public static final int rating=0x7f080017;
+        public static final int scrollView=0x7f080010;
         public static final int stationView=0x7f080009;
-        public static final int station_elem_layout=0x7f080013;
+        public static final int station_elem_layout=0x7f080015;
         public static final int submitButton=0x7f08000a;
         public static final int tabPage1=0x7f080001;
         public static final int tabPage2=0x7f080002;
@@ -74,9 +84,9 @@ public final class R {
         public static final int textView1=0x7f08000d;
         public static final int title1=0x7f080006;
         public static final int title2=0x7f08000c;
-        public static final int visitText=0x7f08001b;
-        public static final int visitView=0x7f080010;
-        public static final int visit_elem_layout=0x7f080019;
+        public static final int visitText=0x7f08001d;
+        public static final int visitView=0x7f080012;
+        public static final int visit_elem_layout=0x7f08001b;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -90,9 +100,17 @@ public final class R {
         public static final int main=0x7f070000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
+        public static final int action_settings=0x7f040004;
+        public static final int app_name=0x7f040002;
+        /**  for kakaolink 
+ for kakaolink 
+         */
+        public static final int com_kakao_alert_appKey=0x7f040000;
+        public static final int com_kakao_alert_install_kakaotalk=0x7f040001;
+        public static final int hello_world=0x7f040003;
+        public static final int kakao_app_key=0x7f040005;
+        public static final int kakao_scheme=0x7f040006;
+        public static final int kakaolink_host=0x7f040007;
     }
     public static final class style {
         /** 
