@@ -5,21 +5,28 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="13" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
-        
-        <uses-library android:name="com.google.android.maps" />   
-        
-      <!--  <activity android:label="@string/app_name" android:name="com.inazaruk.example.MyMapActivity" />  -->
-         <activity android:label="@string/app_name" android:name="com.nhn.android.mapviewer.NMapViewer" />   
-        
-        
-        <activity android:label="@string/app_name" android:name=".MainFragmentActivity" >
-            <intent-filter >
+        <uses-library android:name="com.google.android.maps" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- <activity android:label="@string/app_name" android:name="com.inazaruk.example.MyMapActivity" /> -->
+        <activity
+            android:name="com.nhn.android.mapviewer.NMapViewer"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".MainFragmentActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

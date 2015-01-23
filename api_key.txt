@@ -1,0 +1,12 @@
+Google MAP API v2
+
+project ID : hardy-crossbar-834
+
+
+project NUM : 1042575543434
+
+Android 애플리케이션용 키
+
+API 키 AIzaSyDiCqbsmrW03OkpS4ii6ym83RsustSuoI4 ANDROID 애플리케이션  
+5F:41:FE:63:C4:F9:0E:A7:F3:14:EB:3E:FB:D1:C3:E6:5A:9D:01:3B;com.example.week3
+ 활성화 날짜 2015. 1. 23. 오전 4:00:00 활성화 기준 shuinzero@gmail.com (나)

@@ -147,11 +147,6 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 		return bitmap;
 	}
 
-	@Override
-	public Drawable getDrawableForInfoLayer(NMapOverlayItem item) {
-		return null;
-	}
-
 	/**
 	 * Class to find resource Ids on map view
 	 */
@@ -520,4 +515,5 @@ public class NMapViewerResourceProvider extends NMapResourceProvider implements
 
 		return resourceId;
 	}
+
 }

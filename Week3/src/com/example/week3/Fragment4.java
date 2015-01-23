@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 public class Fragment4 extends Fragment {
 	private View view;
 	private final String API_KEY="bd0d9df1a88ac0e1b6b0cbc4798c2dca";
@@ -21,12 +22,7 @@ public class Fragment4 extends Fragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment4, container, false);
-		NMapView v = new NMapView(this.getActivity());
-		v.setApiKey(API_KEY);	
-		return v;
-		
-		
-		//return view;
+		view = inflater.inflate(R.layout.fragment4, container, false);	
+		return view;
 	}
 }
