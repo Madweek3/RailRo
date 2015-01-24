@@ -20,6 +20,10 @@ import android.view.View;
 public class RailView extends View {
 	Drawable mapImage;
 	Bitmap trainImage;
+	
+	Drawable sballoon;
+	Drawable eballoon;
+	
 	Path mPath;
 	Paint Pnt;
 
@@ -42,6 +46,9 @@ public class RailView extends View {
 		
 		mapImage = this.getResources().getDrawable(R.drawable.railmap_bw);
 		
+		sballoon =this.getResources().getDrawable(R.drawable.startballoon);
+		eballoon =this.getResources().getDrawable(R.drawable.endballoon);
+		
 		Pnt = new Paint();
 		mPath = new Path();
 		
@@ -54,7 +61,7 @@ public class RailView extends View {
 		if (!MainActivity.start.equals("") && !MainActivity.end.equals("")) {
 			Station last = null;
 			Station temp =  MainActivity.roadMap.get(MainActivity.start);
-			
+			sballoon.setBounds(temp.map_x, temp.map_y, temp.map_x +70, temp.map_y + 70);
 			while (copyTrans.size() != 0) {
 				last = temp;
 				temp = MainActivity.roadMap.get(copyTrans.get(0));
@@ -76,14 +83,16 @@ public class RailView extends View {
 
 			last = temp;
 			temp = MainActivity.roadMap.get(MainActivity.end);
+			eballoon.setBounds(temp.map_x, temp.map_y-70, temp.map_x + 70, temp.map_y);
+			
 			findpath(last, temp);
 			Fragment2.visit_station.add(temp);
 			Fragment2.real_visit_station.add(temp);
 			
 			trainImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.train);
 			
-			bm_offsetX = 0;
-			bm_offsetY = 0;
+			bm_offsetX = 25;
+			bm_offsetY = 25;
 			
 			mPath.moveTo(Fragment2.visit_station.get(0).map_x, Fragment2.visit_station.get(0).map_y);
 			for (int i = 1; i < Fragment2.visit_station.size(); i++)
@@ -116,6 +125,8 @@ public class RailView extends View {
 	protected void onDraw(Canvas canvas){
 		mapImage.setBounds(0, 0, 700, 980);
 		mapImage.draw(canvas);
+		sballoon.draw(canvas);
+		eballoon.draw(canvas);
 		
 		Pnt.setColor(Color.argb(200, 85, 135, 237));
 		Pnt.setStrokeWidth(10);
@@ -129,14 +140,13 @@ public class RailView extends View {
 			matrix.reset();
 			float degrees = (float) (Math.atan2(tan[1], tan[0]) * 180.0 / Math.PI);
 			matrix.postTranslate(pos[0]-bm_offsetX, pos[1]-bm_offsetY);
-			   
 			canvas.drawBitmap(trainImage, matrix, null);
 
 			distance += step;
-		} else
-			distance = 0;
-
-		invalidate();
+			
+			if(distance < pathLength)
+				invalidate();
+		}
 	}
 	
 	public static void findpath(Station from_station, Station to_station){
