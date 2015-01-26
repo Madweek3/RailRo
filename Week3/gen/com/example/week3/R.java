@@ -55,10 +55,11 @@ public final class R {
         public static final int title2=0x7f02001e;
         public static final int train=0x7f02001f;
         public static final int trans=0x7f020020;
+        public static final int transfer=0x7f020021;
     }
     public static final class id {
         public static final int FrameLayout1=0x7f080000;
-        public static final int action_settings=0x7f08001f;
+        public static final int action_settings=0x7f080020;
         public static final int checkBox1=0x7f08000e;
         public static final int editText=0x7f080008;
         public static final int frag1_textView=0x7f080014;
@@ -86,6 +87,7 @@ public final class R {
         public static final int textView1=0x7f08000d;
         public static final int title1=0x7f080006;
         public static final int title2=0x7f08000c;
+        public static final int transImage=0x7f08001f;
         public static final int visitText=0x7f08001d;
         public static final int visitView=0x7f080012;
         public static final int visit_elem_layout=0x7f08001b;

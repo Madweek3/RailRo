@@ -1,7 +1,7 @@
 package com.example.week3;
 
 public class Station {
-	String line;
+	// String line;
 	String name;
 	
 	Edge[] edge;
@@ -15,11 +15,13 @@ public class Station {
 	
 	int prev_min;
 	Station prev;
+	// Edge prevEdge;
 	
 	float rating;
+	boolean transfer;
 	
-	public Station(String _line, String _name, int _x, int _y, float _lat, float _long, float _rating) {
-		line = _line;
+	public Station(String _name, int _x, int _y, float _lat, float _long, float _rating) {
+		// line = _line;
 		name = _name;
 
 		edge = new Edge[4];
@@ -33,12 +35,21 @@ public class Station {
 		
 		prev_min = 0;
 		prev = null;
+		// prevEdge = null;
 		
+		transfer = false;
 		rating = _rating;
 	}
 	
 	public void addEdge(Edge _edge){
 		edge[numEdge++] = _edge;
 	}
-
+	
+	public Edge getEdge (String _station){
+		for(int i = 0; i < edge.length; i++){
+			if(edge[i].to.name.equals(_station) || (edge[i].from.name.equals(_station)))
+				return edge[i];
+		}
+		return null;
+	}
 }

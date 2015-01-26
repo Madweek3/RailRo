@@ -36,5 +36,14 @@
          android:layout_alignParentTop="true"
          android:background="@android:color/transparent"
          android:src="@drawable/mark" />
+
+     <ImageView
+         android:id="@+id/transImage"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:layout_toLeftOf="@+id/mapButton"
+         android:paddingLeft="10dp"
+         android:src="@drawable/empty" />
  
 </RelativeLayout>

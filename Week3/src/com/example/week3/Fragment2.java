@@ -30,45 +30,52 @@ import android.widget.TextView;
 public class Fragment2 extends Fragment {
 	private View view;
 	public static ArrayList<Station> visit_station;
-	public static ArrayList<Station> real_visit_station;
+	public static ArrayList<Integer> not_selected_station;
 	ListView list;
 	
-	CustomVisitAdapter mAdapter1;
-	CustomVisitAdapter mAdapter2;
+	boolean hide = false;
+	CustomVisitAdapter mAdapter;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment2, container, false);
 
 		final ArrayList<String> visited_list = new ArrayList<String>();
-		ArrayList<String> real_visited_list = new ArrayList<String>();
+		final ArrayList<Integer> real_visited_list = new ArrayList<Integer>();
 		
 		for (int i = 0; i < visit_station.size(); i++)
 			visited_list.add(visit_station.get(i).name);
 
-		for (int i = 0; i < real_visit_station.size(); i++)
-			real_visited_list.add(real_visit_station.get(i).name);
+		for (int i = 0; i < not_selected_station.size(); i++)
+			real_visited_list.add(not_selected_station.get(i));
 		
 		// ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, visited_list);
-		mAdapter1 = new CustomVisitAdapter(getActivity(), R.layout.station_list, visited_list);
-		mAdapter2 = new CustomVisitAdapter(getActivity(), R.layout.station_list, real_visited_list);
+		mAdapter = new CustomVisitAdapter(getActivity(), R.layout.station_list, visited_list);
 		
 		list = (ListView) view.findViewById(R.id.visitView);
 		list.setDivider(new ColorDrawable(Color.TRANSPARENT));
-		list.setAdapter(mAdapter1);
+		list.setAdapter(mAdapter);
 		setListViewHeightBasedOnChildren(list);
-		
+
 		CheckBox checkVisible = (CheckBox) view.findViewById(R.id.checkBox1);
-		checkVisible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-		       @Override
-		       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		    	   if(isChecked)
-		    		   list.setAdapter(mAdapter2);
-		    	   else
-		    		   list.setAdapter(mAdapter1);
-		    	   
-	    		   setListViewHeightBasedOnChildren(list);
-	        }
+		checkVisible .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				for (Integer i : real_visited_list) {
+					if(isChecked){
+						list.getChildAt(i).setLayoutParams(new ListView.LayoutParams(-1, 1));
+						list.getChildAt(i).setVisibility(View.GONE);
+						hide = true;
+					}
+					else{
+						list.getChildAt(i).setLayoutParams(new ListView.LayoutParams(-1, -2));
+						list.getChildAt(i).setVisibility(View.VISIBLE);
+						hide = false;
+					}
+					
+					setListViewHeightBasedOnChildren(list);
+				}
+			}
 		});
 		
 		ImageButton kakao = (ImageButton) view.findViewById(R.id.kakaoButton);
@@ -104,7 +111,6 @@ public class Fragment2 extends Fragment {
 				}
 			}
 		});
-		
 		
 		return view;
 	}
@@ -143,7 +149,15 @@ public class Fragment2 extends Fragment {
 
 			mInflater = LayoutInflater.from(context);
 		}
-
+/*
+		@Override
+		public int getCount(){
+			if (hide)
+				return visit_station.size()- not_selected_station.size();
+			else
+				return visit_station.size();
+		}
+*/	
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			CustomVisitHolder holder;
@@ -155,8 +169,9 @@ public class Fragment2 extends Fragment {
 				holder = new CustomVisitHolder();
 				holder.mLineImage = (ImageView) convertView.findViewById(R.id.lineImage);
 				holder.mVisitText = (TextView) convertView.findViewById(R.id.visitText);
+				holder.mTransImage = (ImageView) convertView.findViewById(R.id.transImage);
 				holder.mMapButton = (ImageButton) convertView.findViewById(R.id.mapButton);
-
+				
 				convertView.setTag(holder);
 			} else
 				holder = (CustomVisitHolder) convertView.getTag();
@@ -164,8 +179,26 @@ public class Fragment2 extends Fragment {
 			String s_name = mList.get(position);
 			Station s_object = MainActivity.roadMap.get(s_name);
 			
+			
+			// CHECK TRANSFER
+			if (s_object.transfer && position != 0 && position != mList.size()-1) {
+				String prev_line = s_object.getEdge(mList.get(position - 1)).line;
+				String next_line = s_object.getEdge(mList.get(position + 1)).line;
+				
+				if(!prev_line.equals(next_line)){
+					holder.mTransImage.setImageResource(R.drawable.transfer);
+					s_name += "(" + prev_line + "->" + next_line + ")";
+				}
+			}
 			holder.mVisitText.setText(s_name);
-			if(s_object.line.equals("°æºÎ¼±")){
+			
+			String linecheck;
+			if(position == 0)
+				linecheck = s_object.getEdge(mList.get(1)).line;
+			else
+				linecheck = s_object.getEdge(mList.get(position-1)).line;
+			
+			if(linecheck.equals("°æºÎ¼±")){
 				if(position == 0)
 					holder.mLineImage.setImageResource(R.drawable.gb_start);
 				else if(position == mList.size()-1)
@@ -173,7 +206,7 @@ public class Fragment2 extends Fragment {
 				else
 					holder.mLineImage.setImageResource(R.drawable.gb_trans);
 			}
-			else if(s_object.line.equals("°æºÏ¼±")){
+			else if(linecheck.equals("°æºÏ¼±")){
 				if(position == 0)
 					holder.mLineImage.setImageResource(R.drawable.gbk_start);
 				else if(position == mList.size()-1)
@@ -181,7 +214,7 @@ public class Fragment2 extends Fragment {
 				else
 					holder.mLineImage.setImageResource(R.drawable.gbk_trans);
 			}
-			else if(s_object.line.equals("Áß¾Ó¼±")){
+			else if(linecheck.equals("Áß¾Ó¼±")){
 				if(position == 0)
 					holder.mLineImage.setImageResource(R.drawable.ja_start);
 				else if(position == mList.size()-1)
@@ -195,6 +228,7 @@ public class Fragment2 extends Fragment {
 		private class CustomVisitHolder {
 			ImageView mLineImage;
 			TextView mVisitText;
+			ImageView mTransImage;
 			ImageButton mMapButton;
 		}
 	}

@@ -73,7 +73,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			
 			for (int i = 0; i < data.length(); i++) {
 				roadMap.put(data.getJSONObject(i).getString("STATION"), new Station(
-						data.getJSONObject(i).getString("LINE"),
 						data.getJSONObject(i).getString("STATION"),
 						data.getJSONObject(i).getInt("MAP_X"),
 						data.getJSONObject(i).getInt("MAP_Y"),
