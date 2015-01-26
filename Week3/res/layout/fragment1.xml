@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/frag1_textView"
-        android:layout_width="wrap_content"
+    
+     <ImageView
+        android:id="@+id/title1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="fragment 1" />
+        android:layout_alignParentTop="true"
+        android:src="@drawable/title1" />
+     
+     <TextView
+        android:id="@+id/textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/title1"
+        android:layout_alignParentLeft="true"
+        android:paddingBottom="10dp"
+        android:text="먼저 가고 싶은 도시를 선택해주세요.\n 길게 누르면 출발지 도착지 설정,\n 짧게 누르면 경유지 설정이 가능합니다." />
+     
+     <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/textView"
+        android:ems="9" />
+     
+    <ListView
+        android:id="@+id/stationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/submitButton"
+        android:layout_below="@id/editText" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="결정!" />
+
+   
+   
+</RelativeLayout>

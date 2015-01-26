@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 
 public class CustomViewPager extends ViewPager {
 
-	
 	boolean drawMode;
     private boolean isPagingEnabled = true;
 

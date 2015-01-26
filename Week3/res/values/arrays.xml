@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name ="searchKeyword">
+    	<item> 가볼 만한 곳 </item>
+    	<item> 맛집 </item>
+    	<item>역 숙박 </item>
+    	<item>찜질방 </item>
+    </string-array>
+</resources>

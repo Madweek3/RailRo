@@ -4,8 +4,6 @@
     android:id="@+id/FrameLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEEEEE"
-    android:padding="5dp"
     tools:context="${relativePackage}.${activityClass}" >
 
     <LinearLayout
@@ -32,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/btn_selector2"
-                android:text="SEARCH"
+                android:text="ROUTE"
                 android:textSize="12sp" />
 
             <Button
@@ -40,8 +38,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/btn_selector2"
+                android:text="INFO"
+                android:textSize="12sp" />
+            
+             <Button
+                android:id="@+id/tabPage4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@drawable/btn_selector3"
-                android:text="EAT"
+                android:text="SHARE"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -51,6 +58,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="5dp" >
         </com.example.week3.CustomViewPager>
+        
     </LinearLayout>
     
 </RelativeLayout>

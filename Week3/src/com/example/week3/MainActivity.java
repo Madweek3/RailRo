@@ -1,11 +1,14 @@
 package com.example.week3;
 
+import java.util.ArrayList;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,50 +21,59 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private final long	FINSH_INTERVAL_TIME    = 2000;
 	private long		backPressedTime        = 0;
 	
-	private int NUM_PAGES = 3;
+	private int NUM_PAGES = 4;
 	
 	private final static int FRAGMENT1 = 0;
 	private final static int FRAGMENT2 = 1;
 	private final static int FRAGMENT3 = 2;
+	private final static int FRAGMENT4 = 3;
 	private PagerAdapter TabPager;
 	private CustomViewPager pager;
-	private Button tabPage1, tabPage2, tabPage3;
+	private Button tabPage1, tabPage2, tabPage3, tabPage4;
+	
+	public static String start;
+	public static String end;
+	public static ArrayList<String> trans;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		MainActivity.start = "";
+		MainActivity.end = "";
+		MainActivity.trans = new ArrayList<String>();
+
+		// VIEW PAGER
 		pager = (CustomViewPager)findViewById(R.id.pager);
 		TabPager = new PagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(TabPager);
 		
 		tabPage1 = (Button)findViewById(R.id.tabPage1);
 		tabPage2 = (Button)findViewById(R.id.tabPage2);
-		tabPage3=  (Button)findViewById(R.id.tabPage3);
-		
-		tabPage1.setTextColor(Color.parseColor("#eeeeee"));
+		tabPage3 = (Button)findViewById(R.id.tabPage3);
+		tabPage4 = (Button)findViewById(R.id.tabPage4);
 		
 		pager.setAdapter(TabPager);
 		pager.setCurrentItem(FRAGMENT1);
 		
 		tabPage1.setOnClickListener(this);
 		tabPage1.setSelected(true);
+		tabPage1.setTextColor(Color.parseColor("#eeeeee"));
+		
 		tabPage2.setOnClickListener(this);
 		tabPage3.setOnClickListener(this);
+		tabPage4.setOnClickListener(this);
 		
 		pager.setOnPageChangeListener(new OnPageChangeListener(){
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				
 			}
 
 			@Override
@@ -70,9 +82,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				tabPage1.setSelected(false);
 				tabPage2.setSelected(false);
 				tabPage3.setSelected(false);
+				tabPage4.setSelected(false);
 				tabPage1.setTextColor(Color.parseColor("#000000"));
 				tabPage2.setTextColor(Color.parseColor("#000000"));
 				tabPage3.setTextColor(Color.parseColor("#000000"));
+				tabPage4.setTextColor(Color.parseColor("#000000"));
+				
 				switch (position) {
 				case FRAGMENT1:
 					tabPage1.setSelected(true);
@@ -89,19 +104,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					tabPage3.setTextColor(Color.parseColor("#eeeeee"));
 					TabPager.notifyDataSetChanged();
 					break;
+				case FRAGMENT4:
+					tabPage4.setSelected(true);
+					tabPage4.setTextColor(Color.parseColor("#eeeeee"));
+					TabPager.notifyDataSetChanged();
+					break;
 				}
-
 			}
-
 		});
-		
 	}
 	
 	private class PagerAdapter extends FragmentPagerAdapter {
 
 		public PagerAdapter(android.support.v4.app.FragmentManager fm) {
 			super(fm);
-			// TODO Auto-generated constructor stub
 		}
 
 		@Override
@@ -114,6 +130,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 					return new Fragment2();
 				case FRAGMENT3:
 					return new Fragment3();
+				case FRAGMENT4:
+					return new Fragment4();
 				}
 			
 			return null;
@@ -122,13 +140,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return NUM_PAGES;
 		}
 		
 		@Override
 		public int getItemPosition(Object object) {
-			// TODO Auto-generated method stub
 			return POSITION_NONE;
 		}
 	}
@@ -151,6 +167,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 				setSelected(tabPage3);
 				pager.setCurrentItem(FRAGMENT3);
 				break;
+			case R.id.tabPage4:
+				setSelected(tabPage4);
+				pager.setCurrentItem(FRAGMENT4);
+				break;
 			}
 		
 	}
@@ -159,16 +179,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 		tabPage1.setSelected(false);
 		tabPage2.setSelected(false);
 		tabPage3.setSelected(false);
+		tabPage4.setSelected(false);
 		
 		tabPage1.setTextColor(Color.parseColor("#000000"));
 		tabPage2.setTextColor(Color.parseColor("#000000"));
 		tabPage3.setTextColor(Color.parseColor("#000000"));
+		tabPage4.setTextColor(Color.parseColor("#000000"));
 
-		
 		btn.setSelected(true);
 		btn.setTextColor(Color.parseColor("#eeeeee"));
 	}
 	
+	public int getCurrentPage(){
+		return pager.getCurrentItem();
+	}
 	
 	public void setCurrentPage(int pos) {
 		switch (pos) {
@@ -178,17 +202,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 			TabPager.notifyDataSetChanged();
 			break;
 		case 1:
-			setSelected(tabPage1);
+			setSelected(tabPage2);
 			pager.setCurrentItem(FRAGMENT2);
 			TabPager.notifyDataSetChanged();
 			break;
 		case 2:
-			setSelected(tabPage1);
+			setSelected(tabPage3);
 			pager.setCurrentItem(FRAGMENT3);
+			break;
+		case 3:
+			setSelected(tabPage4);
+			pager.setCurrentItem(FRAGMENT4);
 			break;
 		}
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

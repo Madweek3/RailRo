@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/authButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        fb:login_text="Login with Facebook"
+        fb:logout_text="Logout" >
+    </com.facebook.widget.LoginButton>
+    
+    
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/update_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/update_status" />
+
+    <Button
+        android:id="@+id/post_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/post_image" />
+    
+</LinearLayout>

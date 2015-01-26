@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight" >
+    
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Description"
+        android:textSize="12sp"
+        android:textColor="#8C8C8C"
+        android:paddingLeft="6dp"
+    	android:paddingRight="6dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/desc"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center_vertical"
+        android:text="Example Name"
+        android:textSize="16sp" 
+        android:textColor="#0B486B"
+      	android:paddingLeft="6dp"
+    	android:paddingRight="6dp" />
+
+</RelativeLayout> 
