@@ -1,9 +1,12 @@
 package com.example.week3;
 
+import com.google.android.gms.maps.GoogleMap;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Menu;
@@ -28,11 +31,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 	private CustomViewPager pager;
 	private Button tabPage1, tabPage2, tabPage3, tabPage4;
 	
-	
+	public static FragmentManager fragmentManager;
+	GoogleMap mGoogleMap;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		fragmentManager = getSupportFragmentManager();
 		pager = (CustomViewPager)findViewById(R.id.pager);
 		TabPager = new PagerAdapter(getSupportFragmentManager());
 		pager.setAdapter(TabPager);

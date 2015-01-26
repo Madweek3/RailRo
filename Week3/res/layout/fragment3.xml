@@ -4,37 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/tvIsConnected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:background="#FF0000"
-        android:text="is connected? "
-        android:textColor="#FFF"
-        android:textSize="18dp" />
+    <FrameLayout
+        android:id="@+id/map_container"
+        android:layout_width="260dp"
+        android:layout_height="260dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
+
         <Button
             android:id="@+id/f3_button_before"
-            android:layout_width = "wrap_content"
-            android:layout_height= "wrap_content"
-            android:text="@string/button_before"
-            android:enabled="false"/>
-        
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="@string/button_before" />
+
         <Button
             android:id="@+id/f3_button_next"
-            android:layout_width = "wrap_content"
-            android:layout_height= "wrap_content"
-            android:text="@string/button_next"
-            android:enabled="true"/>
-        
-        
-        
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="true"
+            android:text="@string/button_next" />
     </LinearLayout>
 
     <ListView

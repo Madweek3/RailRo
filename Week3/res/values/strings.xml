@@ -6,5 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="button_next">Next</string>
     <string name="button_before">Before</string>
+    <string name="share">SHARE</string>
+    <string name="app_id">870973169590719</string>
+    <string name="update_status">STATUS UPDATE</string>
+    <string name="post_image">POST IMAGE</string>
 
 </resources>
