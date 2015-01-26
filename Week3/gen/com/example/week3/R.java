@@ -697,7 +697,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f02001d;
         public static final int com_facebook_loginbutton_silver=0x7f02001e;
         public static final int com_facebook_logo=0x7f02001f;
-        public static final int com_facebook_picker_default_separator_color=0x7f020072;
+        public static final int com_facebook_picker_default_separator_color=0x7f020073;
         public static final int com_facebook_picker_item_background=0x7f020020;
         public static final int com_facebook_picker_list_focused=0x7f020021;
         public static final int com_facebook_picker_list_longpressed=0x7f020022;
@@ -777,9 +777,10 @@ containing a value of this type.
         public static final int tab_selected=0x7f02006c;
         public static final int title1=0x7f02006d;
         public static final int title2=0x7f02006e;
-        public static final int train=0x7f02006f;
-        public static final int trans=0x7f020070;
-        public static final int transfer=0x7f020071;
+        public static final int title3=0x7f02006f;
+        public static final int train=0x7f020070;
+        public static final int trans=0x7f020071;
+        public static final int transfer=0x7f020072;
     }
     public static final class id {
         public static final int FrameLayout1=0x7f0c0022;
@@ -846,7 +847,7 @@ containing a value of this type.
         public static final int lineImage=0x7f0c0064;
         public static final int list=0x7f0c0055;
         public static final int mapButton=0x7f0c0066;
-        public static final int map_container=0x7f0c0051;
+        public static final int mapedit=0x7f0c0051;
         public static final int match_parent=0x7f0c000e;
         public static final int monochrome=0x7f0c0016;
         public static final int name=0x7f0c005c;

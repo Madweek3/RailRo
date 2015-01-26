@@ -160,7 +160,7 @@ int drawable com_facebook_list_divider 0x7f02001c
 int drawable com_facebook_list_section_header_background 0x7f02001d
 int drawable com_facebook_loginbutton_silver 0x7f02001e
 int drawable com_facebook_logo 0x7f02001f
-int drawable com_facebook_picker_default_separator_color 0x7f020072
+int drawable com_facebook_picker_default_separator_color 0x7f020073
 int drawable com_facebook_picker_item_background 0x7f020020
 int drawable com_facebook_picker_list_focused 0x7f020021
 int drawable com_facebook_picker_list_longpressed 0x7f020022
@@ -240,9 +240,10 @@ int drawable startballoon 0x7f02006b
 int drawable tab_selected 0x7f02006c
 int drawable title1 0x7f02006d
 int drawable title2 0x7f02006e
-int drawable train 0x7f02006f
-int drawable trans 0x7f020070
-int drawable transfer 0x7f020071
+int drawable title3 0x7f02006f
+int drawable train 0x7f020070
+int drawable trans 0x7f020071
+int drawable transfer 0x7f020072
 int id FrameLayout1 0x7f0c0022
 int id action_settings 0x7f0c0068
 int id adjust_height 0x7f0c0000
@@ -307,7 +308,7 @@ int id left 0x7f0c0020
 int id lineImage 0x7f0c0064
 int id list 0x7f0c0055
 int id mapButton 0x7f0c0066
-int id map_container 0x7f0c0051
+int id mapedit 0x7f0c0051
 int id match_parent 0x7f0c000e
 int id monochrome 0x7f0c0016
 int id name 0x7f0c005c

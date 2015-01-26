@@ -226,6 +226,7 @@ public class Fragment2 extends Fragment {
 			    @Override
 			    public void onClick(View v) {
 			    	try {
+			    		Fragment3.searcher_org = holder.mVisitText.getText().toString();
 						Fragment3.searcher = URLEncoder.encode(holder.mVisitText.getText().toString(), "UTF-8");
 						Fragment3.extra = URLEncoder.encode(" 가볼 만한 곳", "UTF-8");
 						((MainActivity)v.getContext()).setCurrentPage(2);

@@ -78,11 +78,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
 
 			@Override
 			public void onPageSelected(int position) {
-
 				tabPage1.setSelected(false);
 				tabPage2.setSelected(false);
 				tabPage3.setSelected(false);
 				tabPage4.setSelected(false);
+				
 				tabPage1.setTextColor(Color.parseColor("#000000"));
 				tabPage2.setTextColor(Color.parseColor("#000000"));
 				tabPage3.setTextColor(Color.parseColor("#000000"));

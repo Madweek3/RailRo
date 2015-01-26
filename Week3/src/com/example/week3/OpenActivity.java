@@ -49,8 +49,8 @@ public class OpenActivity extends Activity {
 						data.getJSONObject(i).getString("STATION"),
 						data.getJSONObject(i).getInt("MAP_X"),
 						data.getJSONObject(i).getInt("MAP_Y"),
-						data.getJSONObject(i).getLong("LAT"),
-						data.getJSONObject(i).getLong("LONG"), 
+						data.getJSONObject(i).getDouble("LAT"),
+						data.getJSONObject(i).getDouble("LONG"), 
 						data.getJSONObject(i).getLong("RATING")));
 			}
 			
@@ -94,7 +94,7 @@ public class OpenActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        }, 2000);   
+        }, 1500);   
 	}
 	
 	class JSONParse extends AsyncTask<String, String, String> {

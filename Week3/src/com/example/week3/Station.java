@@ -10,8 +10,8 @@ public class Station {
 	int map_x;
 	int map_y;
 	
-	float latitude;
-	float longitude;
+	double latitude;
+	double longitude;
 	
 	int prev_min;
 	Station prev;
@@ -20,7 +20,7 @@ public class Station {
 	float rating;
 	boolean transfer;
 	
-	public Station(String _name, int _x, int _y, float _lat, float _long, float _rating) {
+	public Station(String _name, int _x, int _y, double _lat, double _long, float _rating) {
 		// line = _line;
 		name = _name;
 
